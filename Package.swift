@@ -8,10 +8,19 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/mliberman/CCairo.git", from: "1.2.0"),
+        .package(url: "https://github.com/mliberman/CCairoJPEG.git", from: "1.0.4"),
         .package(url: "https://github.com/mliberman/CFontConfig.git", from: "1.1.0"),
         .package(url: "https://github.com/mliberman/CFreeType.git", from: "1.1.0"),
     ],
     targets: [
-        .target(name: "Cairo", dependencies: ["CCairo", "CFontConfig", "CFreeType"])
+        .target(
+            name: "Cairo",
+            dependencies: [
+                "CCairo",
+                "CCairoJPEG",
+                "CFontConfig",
+                "CFreeType"
+            ]
+        )
     ]
 )

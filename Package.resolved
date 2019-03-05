@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "CCairoJPEG",
+        "repositoryURL": "https://github.com/mliberman/CCairoJPEG.git",
+        "state": {
+          "branch": null,
+          "revision": "807153ed0e5e68a31e2746bda76a6cb00e5c166e",
+          "version": "1.0.4"
+        }
+      },
+      {
         "package": "CFontConfig",
         "repositoryURL": "https://github.com/mliberman/CFontConfig.git",
         "state": {
