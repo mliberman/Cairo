@@ -80,7 +80,7 @@ fileprivate extension Surface {
                 size = data.count - readPosition;
             }
             
-            let byteRange = Range<Data.Index>(readPosition ..< readPosition + size)
+            let byteRange: Range<Data.Index> = readPosition ..< readPosition + size
             
             let _ = data.copyBytes(to: pointer, from: byteRange)
             

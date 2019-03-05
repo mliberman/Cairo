@@ -188,7 +188,7 @@ public final class ScaledFont {
             
             let bufferSize = 256
             let buffer = UnsafeMutablePointer<CChar>.allocate(capacity: bufferSize)
-            defer { buffer.deallocate(capacity: bufferSize) }
+            defer { buffer.deallocate() }
             
             FT_Get_Glyph_Name(fontFace, FT_UInt(glyph), buffer, FT_UInt(bufferSize))
             
