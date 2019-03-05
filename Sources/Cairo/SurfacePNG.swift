@@ -55,6 +55,10 @@ extension Surface.Image {
         
         try self.init(png: pngRead, closure: pointer)
     }
+
+    public static func png(fromFile path: String) throws -> Surface.Image {
+        return try Surface.Image.init(cairo_image_surface_create_from_png(path.cString(using: .utf8)))
+    }
 }
 
 // MARK: - Private Functions

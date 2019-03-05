@@ -48,6 +48,10 @@ extension Surface.Image {
 
         try self.init(jpeg: jpegRead, closure: pointer)
     }
+
+    public static func jpeg(fromFile path: String) throws -> Surface.Image {
+        return try Surface.Image(cairo_image_surface_create_from_jpeg(path.cString(using: .utf8))!)
+    }
 }
 
 // MARK: - Private Functions
