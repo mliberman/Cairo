@@ -7,11 +7,11 @@ let package = Package(
         .library(name: "Cairo", targets: ["Cairo"])
     ],
     dependencies: [
-        .package(url: "https://github.com/PureSwift/CCairo.git", from: "1.1.1"),
-        .package(url: "https://github.com/PureSwift/CFontConfig.git", from: "1.0.1"),
-        .package(url: "https://github.com/PureSwift/CFreeType.git", from: "1.0.4")
+        .package(url: "https://github.com/mliberman/CCairo.git", from: "1.2.0"),
+        .package(url: "https://github.com/mliberman/CFontConfig.git", from: "1.1.0"),
+        .package(url: "https://github.com/mliberman/CFreeType.git", from: "1.1.0"),
     ],
     targets: [
-        .target(name: "Cairo")
+        .target(name: "Cairo", dependencies: ["CCairo", "CFontConfig", "CFreeType"])
     ]
 )

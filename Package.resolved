@@ -3,29 +3,29 @@
     "pins": [
       {
         "package": "CCairo",
-        "repositoryURL": "https://github.com/PureSwift/CCairo.git",
+        "repositoryURL": "https://github.com/mliberman/CCairo.git",
         "state": {
           "branch": null,
-          "revision": "1bd46ac81056766182be22fccc2cdf0e457f042f",
-          "version": "1.1.1"
+          "revision": "aea9e8ec18c3a0415ea4047f50b3f0c5045b7e00",
+          "version": "1.2.0"
         }
       },
       {
         "package": "CFontConfig",
-        "repositoryURL": "https://github.com/PureSwift/CFontConfig.git",
+        "repositoryURL": "https://github.com/mliberman/CFontConfig.git",
         "state": {
           "branch": null,
-          "revision": "e5bae817dbd1eb402f395d960485c52350b2bd88",
-          "version": "1.0.1"
+          "revision": "4d0423371085620203a43e2eb1473e2a7c7b7e56",
+          "version": "1.1.0"
         }
       },
       {
         "package": "CFreeType",
-        "repositoryURL": "https://github.com/PureSwift/CFreeType.git",
+        "repositoryURL": "https://github.com/mliberman/CFreeType.git",
         "state": {
           "branch": null,
-          "revision": "079909dc68c13c700bb6bab3059ddf51f642b43a",
-          "version": "1.0.4"
+          "revision": "dde9ca18a67d194253b120804303b29ce395a8ff",
+          "version": "1.1.0"
         }
       }
     ]
