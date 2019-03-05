@@ -9,7 +9,7 @@
 import struct Foundation.Data
 import CCairo
 
-public extension Surface {
+extension Surface {
     
     /// Image surfaces provide the ability to render to memory buffers either allocated by Cairo or by the calling code.
     /// The supported image formats are those defined in `ImageFormat`.

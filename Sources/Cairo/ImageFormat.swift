@@ -31,27 +31,27 @@ public enum ImageFormat: CInt {
 
 // MARK: - Cairo Extensions
 
-public extension ImageFormat {
+extension ImageFormat {
     
     /// Failible becuase -1 is invalid format. 
     @inline(__always)
-    init?(_ format: cairo_format_t) {
+    public init?(_ format: cairo_format_t) {
         
         self.init(rawValue: format.rawValue)
     }
     
     /// Provides stride value that will respect all alignment requirements of the accelerated image-rendering code within Cairo.
     @inline(__always)
-    func stride(for width: Int) -> Int {
+    public func stride(for width: Int) -> Int {
         
         return Int(cairo_format_stride_for_width(cairo_format_t(self), Int32(width)))
     }
 }
 
-public extension cairo_format_t {
+extension cairo_format_t {
     
     @inline(__always)
-    init(_ imageFormat: ImageFormat) {
+    public init(_ imageFormat: ImageFormat) {
         
         self.init(imageFormat.rawValue)
     }

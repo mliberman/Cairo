@@ -4,7 +4,7 @@ import struct Foundation.Data
 import CCairo
 import CCairoJPEG
 
-public extension Surface {
+extension Surface {
 
     public func writeJPEG(atPath path: String, withQuality quality: Int32) {
         cairo_image_surface_write_to_jpeg(internalPointer, path, quality)
@@ -27,7 +27,7 @@ public extension Surface {
     }
 }
 
-public extension Surface.Image {
+extension Surface.Image {
 
     /// Creates a new image surface from JPEG data read incrementally via the read function.
     @inline(__always)
@@ -38,7 +38,7 @@ public extension Surface.Image {
         try self.init(internalPointer)
     }
 
-    convenience init(jpeg data: Data) throws {
+    public convenience init(jpeg data: Data) throws {
 
         let dataProvider = DataProvider(data: data)
 

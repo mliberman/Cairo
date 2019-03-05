@@ -8,7 +8,7 @@
 
 import CCairo
 
-public extension Surface {
+extension Surface {
     
     public final class PDF: Surface {
         

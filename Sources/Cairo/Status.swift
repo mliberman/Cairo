@@ -10,7 +10,7 @@ import CCairo
 
 public typealias Status = cairo_status_t
 
-public extension Cairo.Status {
+extension Cairo.Status {
     
     func toError() -> CairoError? {
         

@@ -39,17 +39,17 @@ public enum SurfaceType: UInt32 {
     case cogl
 }
 
-public extension SurfaceType {
+extension SurfaceType {
     
-    init(_ surfaceType: cairo_surface_type_t) {
+    public init(_ surfaceType: cairo_surface_type_t) {
         
         self.init(rawValue: surfaceType.rawValue)!
     }
 }
 
-public extension cairo_surface_type_t {
+extension cairo_surface_type_t {
     
-    init(_ surfaceType: SurfaceType) {
+    public init(_ surfaceType: SurfaceType) {
         
         self.init(surfaceType.rawValue)
     }

@@ -9,7 +9,7 @@
 import struct Foundation.Data
 import CCairo
 
-public extension Surface {
+extension Surface {
     
     /// Writes the surface's contents to a PNG file.
     public func writePNG(atPath path: String) {
@@ -34,7 +34,7 @@ public extension Surface {
     }
 }
 
-public extension Surface.Image {
+extension Surface.Image {
     
     /// Creates a new image surface from PNG data read incrementally via the read function.
     @inline(__always)
@@ -45,7 +45,7 @@ public extension Surface.Image {
         try self.init(internalPointer)
     }
     
-    convenience init(png data: Data) throws {
+    public convenience init(png data: Data) throws {
         
         let dataProvider = DataProvider(data: data)
         
