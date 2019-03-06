@@ -19,7 +19,7 @@ extension Surface {
     
     public func writePNG() throws -> Data {
         
-        let dataProvider = DataProvider()
+        let dataProvider = PNGDataProvider()
         
         let unmanaged = Unmanaged.passUnretained(dataProvider)
         
@@ -47,7 +47,7 @@ extension Surface.Image {
     
     public convenience init(png data: Data) throws {
         
-        let dataProvider = DataProvider(data: data)
+        let dataProvider = PNGDataProvider(data: data)
         
         let unmanaged = Unmanaged.passUnretained(dataProvider)
         
@@ -61,12 +61,54 @@ extension Surface.Image {
     }
 }
 
+// MARK: - Supporting Types
+
+fileprivate extension Surface {
+    
+    final class PNGDataProvider {
+        
+        private(set) var data: Data
+        private(set) var readPosition: Int = 0
+        
+        init(data: Data = Data()) {
+            self.data = data
+        }
+        
+        @inline(__always)
+        func copyBytes(to pointer: UnsafeMutablePointer<UInt8>, length: Int) -> cairo_status_t {
+            
+            var size = length
+            
+            if (readPosition + size) > data.count {
+                
+                size = data.count - readPosition;
+            }
+            
+            let byteRange: Range<Data.Index> = readPosition ..< readPosition + size
+            
+            let _ = data.copyBytes(to: pointer, from: byteRange)
+            
+            readPosition += size
+            
+            return CAIRO_STATUS_SUCCESS
+        }
+        
+        @inline(__always)
+        func copyBytes(from pointer: UnsafePointer<UInt8>, length: Int) -> cairo_status_t {
+            
+            data.append(pointer, count: length)
+            
+            return CAIRO_STATUS_SUCCESS
+        }
+    }
+}
+
 // MARK: - Private Functions
 
 @_silgen_name("_cairo_swift_png_read_data")
 private func pngRead(_ closure: UnsafeMutableRawPointer?, _ data: UnsafeMutablePointer<UInt8>?, _ length: UInt32) -> cairo_status_t {
     
-    let unmanaged = Unmanaged<Surface.DataProvider>.fromOpaque(closure!)
+    let unmanaged = Unmanaged<Surface.PNGDataProvider>.fromOpaque(closure!)
     
     let dataProvider = unmanaged.takeUnretainedValue()
     
@@ -76,7 +118,7 @@ private func pngRead(_ closure: UnsafeMutableRawPointer?, _ data: UnsafeMutableP
 @_silgen_name("_cairo_swift_png_write_data")
 private func pngWrite(_ closure: UnsafeMutableRawPointer?, _ data: UnsafePointer<UInt8>?, _ length: UInt32) -> cairo_status_t {
     
-    let unmanaged = Unmanaged<Surface.DataProvider>.fromOpaque(closure!)
+    let unmanaged = Unmanaged<Surface.PNGDataProvider>.fromOpaque(closure!)
     
     let dataProvider = unmanaged.takeUnretainedValue()
     
