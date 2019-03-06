@@ -6,7 +6,7 @@
 //  Copyright © 2016 PureSwift. All rights reserved.
 //
 
-import CCairo
+@_exported import CCairo
 
 public typealias Status = cairo_status_t
 

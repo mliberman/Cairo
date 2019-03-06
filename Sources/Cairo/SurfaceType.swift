@@ -6,7 +6,7 @@
 //  Copyright © 2016 PureSwift. All rights reserved.
 //
 
-import CCairo
+@_exported import CCairo
 
 /// Used to describe the type of a given surface.
 /// The surface types are also known as "backends" or "surface backends" within cairo.

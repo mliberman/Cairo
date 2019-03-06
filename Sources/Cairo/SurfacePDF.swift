@@ -6,7 +6,7 @@
 //
 //
 
-import CCairo
+@_exported import CCairo
 
 extension Surface {
     

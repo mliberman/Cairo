@@ -1,8 +1,8 @@
 
 import struct Foundation.Data
 
-import CCairo
-import CCairoJPEG
+@_exported import CCairo
+@_exported import CCairoJPEG
 
 extension Surface {
 
