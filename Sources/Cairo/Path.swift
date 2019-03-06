@@ -9,13 +9,6 @@
 @_exported import CCairo
 
 public final class Path {
-
-    public enum DataType: cairo_path_data_type_t.RawValue {
-        case moveTo = 0
-        case lineTo = 1
-        case curveTo = 2
-        case closePath = 3
-    }
     
     // MARK: - Internal Properties
     
