@@ -296,7 +296,7 @@ public final class Context {
     
     public var status: Status {
         
-        return cairo_status(internalPointer)
+        return Status(cairo_status(internalPointer))
     }
     
     public var currentPoint: (x: Double, y: Double)? {

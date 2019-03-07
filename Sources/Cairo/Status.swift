@@ -8,13 +8,21 @@
 
 @_exported import CCairo
 
-public typealias Status = cairo_status_t
+public struct Status {
 
-extension Cairo.Status {
-    
-    func toError() -> CairoError? {
+    public var cairo_status: cairo_status_t
+
+    public init(_ status: cairo_status_t) {
+        self.cairo_status = status
+    }
+
+    public init(rawValue: cairo_status_t.RawValue) {
+        self.cairo_status = cairo_status_t(rawValue: rawValue)
+    }
+
+    public func toError() -> CairoError? {
         
-        return CairoError(rawValue: rawValue)
+        return CairoError(rawValue: self.cairo_status.rawValue)
     }
 }
 
@@ -22,7 +30,7 @@ extension Cairo.Status: CustomStringConvertible {
     
     public var description: String {
         
-        let cString = cairo_status_to_string(self)!
+        let cString = cairo_status_to_string(self.cairo_status)!
         
         let string = String(cString: cString)
         

@@ -35,7 +35,7 @@ public final class Path {
     
     public var status: Status {
         
-        return internalPointer.pointee.status
+        return Status(internalPointer.pointee.status)
     }
     
     public lazy var data: [cairo_path_data_t] = {

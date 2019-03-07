@@ -74,7 +74,7 @@ public final class Pattern {
     
     public var status: Status {
         
-        return cairo_pattern_status(internalPointer)
+        return Status(cairo_pattern_status(internalPointer))
     }
     
     public var matrix: Matrix {

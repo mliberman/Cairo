@@ -34,7 +34,7 @@ public final class ScaledFont {
         
         self.internalPointer = cairo_scaled_font_create(face.internalPointer, &matrixCopy.0.cairo_matrix, &matrixCopy.1.cairo_matrix, options.internalPointer)!
         
-        guard self.status != CAIRO_STATUS_NO_MEMORY
+        guard self.status.cairo_status != CAIRO_STATUS_NO_MEMORY
             else { fatalError("Out of memory") }
     }
     
@@ -42,7 +42,7 @@ public final class ScaledFont {
     
     public var status: Status {
         
-        return cairo_scaled_font_status(internalPointer)
+        return Status(cairo_scaled_font_status(internalPointer))
     }
     
     public lazy var type: cairo_font_type_t = {
@@ -288,7 +288,7 @@ public final class FontFace {
     
     public var status: Status {
         
-        return cairo_font_face_status(internalPointer)
+        return Status(cairo_font_face_status(internalPointer))
     }
     
     public lazy var type: cairo_font_type_t = cairo_font_face_get_type(self.internalPointer) // Never changes
@@ -329,7 +329,7 @@ public final class FontOptions: Equatable, Hashable {
     
     public var status: Status {
         
-        return cairo_font_options_status(internalPointer)
+        return Status(cairo_font_options_status(internalPointer))
     }
     
     public var copy: FontOptions {

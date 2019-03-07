@@ -18,7 +18,7 @@ extension Surface {
 
         let pointer = unmanaged.toOpaque()
 
-        if let error = cairo_image_surface_write_to_jpeg_stream(internalPointer, jpegWrite, pointer, quality).toError() {
+        if let error = Status(cairo_image_surface_write_to_jpeg_stream(internalPointer, jpegWrite, pointer, quality)).toError() {
 
             throw error
         }

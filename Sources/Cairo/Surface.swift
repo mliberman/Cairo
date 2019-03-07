@@ -80,7 +80,7 @@ public class Surface {
     /// Checks whether an error has previously occurred for this surface.
     public final var status: Status {
         
-        return cairo_surface_status(internalPointer)
+        return Status(cairo_surface_status(internalPointer))
     }
 }
 
