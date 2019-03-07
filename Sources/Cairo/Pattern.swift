@@ -83,7 +83,7 @@ public final class Pattern {
             
             var matrix = Matrix()
             
-            cairo_pattern_get_matrix(internalPointer, &matrix)
+            cairo_pattern_get_matrix(internalPointer, &matrix.cairo_matrix)
             
             return matrix
         }
@@ -92,7 +92,7 @@ public final class Pattern {
             
             var newValue = newValue
             
-            cairo_pattern_set_matrix(internalPointer, &newValue)
+            cairo_pattern_set_matrix(internalPointer, &newValue.cairo_matrix)
         }
     }
     

@@ -32,7 +32,7 @@ public final class ScaledFont {
         
         var matrixCopy = (matrix, currentTransformation)
         
-        self.internalPointer = cairo_scaled_font_create(face.internalPointer, &matrixCopy.0, &matrixCopy.1, options.internalPointer)!
+        self.internalPointer = cairo_scaled_font_create(face.internalPointer, &matrixCopy.0.cairo_matrix, &matrixCopy.1.cairo_matrix, options.internalPointer)!
         
         guard self.status != CAIRO_STATUS_NO_MEMORY
             else { fatalError("Out of memory") }

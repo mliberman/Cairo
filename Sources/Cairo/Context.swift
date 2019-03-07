@@ -214,7 +214,7 @@ public final class Context {
         
         var copy = matrix
         
-        cairo_set_font_matrix(internalPointer, &copy)
+        cairo_set_font_matrix(internalPointer, &copy.cairo_matrix)
     }
     
     public func move(to coordinate: (x: Double, y: Double)) {
@@ -264,7 +264,7 @@ public final class Context {
         
         var copy = matrix
         
-        cairo_transform(internalPointer, &copy)
+        cairo_transform(internalPointer, &copy.cairo_matrix)
     }
     
     public func showPage() {
@@ -336,7 +336,7 @@ public final class Context {
             
             var matrix = Matrix()
             
-            cairo_get_matrix(internalPointer, &matrix)
+            cairo_get_matrix(internalPointer, &matrix.cairo_matrix)
             
             return matrix
         }
@@ -345,7 +345,7 @@ public final class Context {
             
             var copy = newValue
             
-            cairo_set_matrix(internalPointer, &copy)
+            cairo_set_matrix(internalPointer, &copy.cairo_matrix)
         }
     }
     

@@ -8,10 +8,10 @@
 
 @_exported import CCairo
 
-public typealias Matrix = cairo_matrix_t
+public struct Matrix {
 
-extension Matrix {
-    
+    public var cairo_matrix: cairo_matrix_t
+
     // MARK: - Initialization
     
     public static var identity: Matrix {
@@ -20,19 +20,22 @@ extension Matrix {
         get {
             
             var matrix = Matrix()
-            
-            cairo_matrix_init_identity(&matrix)
+    
+            cairo_matrix_init_identity(&matrix.cairo_matrix)
             
             return matrix
         }
     }
+
+    @inline(__always)
+    public init() {
+        self.cairo_matrix = cairo_matrix_t()
+    }
     
     @inline(__always)
     public init(scale: (x: Double, y: Double)) {
-        
         self.init()
-        
-        cairo_matrix_init_scale(&self, scale.x, scale.y)
+        cairo_matrix_init_scale(&self.cairo_matrix, scale.x, scale.y)
     }
     
     @inline(__always)
@@ -40,7 +43,7 @@ extension Matrix {
         
         self.init()
         
-        cairo_matrix_rotate(&self, radians)
+        cairo_matrix_rotate(&self.cairo_matrix, radians)
     }
     
     @inline(__always)
@@ -48,7 +51,7 @@ extension Matrix {
         
         self.init()
         
-        cairo_matrix_init(&self, a, b, c, d, t.x, t.y)
+        cairo_matrix_init(&self.cairo_matrix, a, b, c, d, t.x, t.y)
     }
     
     // MARK: - Methods
@@ -59,7 +62,7 @@ extension Matrix {
     @inline(__always)
     public mutating func rotate(_ radians: Double) {
         
-        cairo_matrix_rotate(&self, radians)
+        cairo_matrix_rotate(&self.cairo_matrix, radians)
     }
     
     /// Changes `matrix` to be the inverse of its original value.
@@ -68,13 +71,13 @@ extension Matrix {
     @inline(__always)
     public mutating func inverse() {
         
-        cairo_matrix_invert(&self)
+        cairo_matrix_invert(&self.cairo_matrix)
     }
     
     @inline(__always)
     public mutating func invert() {
         
-        cairo_matrix_invert(&self)
+        cairo_matrix_invert(&self.cairo_matrix)
     }
     
     /// Multiplies the affine transformations in `a` and `b` together and stores the result in result.
@@ -83,15 +86,15 @@ extension Matrix {
     @inline(__always)
     public mutating func multiply(a: Matrix, b: Matrix) {
         
-        var copy = (a: a, b: b)
+        var copy = (a: a.cairo_matrix, b: b.cairo_matrix)
         
-        cairo_matrix_multiply(&self, &copy.a, &copy.b)
+        cairo_matrix_multiply(&self.cairo_matrix, &copy.a, &copy.b)
     }
     
     @inline(__always)
     public mutating func scale(x: Double, y: Double) {
         
-        cairo_matrix_scale(&self, x, y)
+        cairo_matrix_scale(&self.cairo_matrix, x, y)
     }
     
     /// Applies a translation by `x , y` to the transformation in matrix .
@@ -100,6 +103,80 @@ extension Matrix {
     @inline(__always)
     public mutating func translate(x: Double, y: Double) {
         
-        cairo_matrix_translate(&self, x, y)
+        cairo_matrix_translate(&self.cairo_matrix, x, y)
+    }
+}
+
+extension Matrix {
+
+    public var xx: Double {
+        @inline(__always)
+        get {
+            return self.cairo_matrix.xx
+        }
+        @inline(__always)
+        set {
+            self.cairo_matrix.xx = newValue
+        }
+    }
+
+    public var yx: Double {
+        @inline(__always)
+        get {
+            return self.cairo_matrix.yx
+        }
+        @inline(__always)
+        set {
+            self.cairo_matrix.yx = newValue
+        }
+    }
+
+    public var xy: Double {
+        @inline(__always)
+        get {
+            return self.cairo_matrix.xy
+        }
+        @inline(__always)
+        set {
+            self.cairo_matrix.xy = newValue
+        }
+    }
+
+    public var yy: Double {
+        @inline(__always)
+        get {
+            return self.cairo_matrix.yy
+        }
+        @inline(__always)
+        set {
+            self.cairo_matrix.yy = newValue
+        }
+    }
+
+    public var x0: Double {
+        @inline(__always)
+        get {
+            return self.cairo_matrix.x0
+        }
+        @inline(__always)
+        set {
+            self.cairo_matrix.x0 = newValue
+        }
+    }
+
+    public var y0: Double {
+        @inline(__always)
+        get {
+            return self.cairo_matrix.y0
+        }
+        @inline(__always)
+        set {
+            self.cairo_matrix.y0 = newValue
+        }
+    }
+
+    @inline(__always)
+    public init(xx: Double, yx: Double, xy: Double, yy: Double, x0: Double, y0: Double) {
+        self.cairo_matrix = cairo_matrix_t(xx: xx, yx: yx, xy: xy, yy: yy, x0: x0, y0: y0)
     }
 }
