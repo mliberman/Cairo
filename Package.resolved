@@ -1,42 +1,7 @@
 {
   "object": {
     "pins": [
-      {
-        "package": "CCairo",
-        "repositoryURL": "https://github.com/mliberman/CCairo.git",
-        "state": {
-          "branch": null,
-          "revision": "aea9e8ec18c3a0415ea4047f50b3f0c5045b7e00",
-          "version": "1.2.0"
-        }
-      },
-      {
-        "package": "CCairoJPEG",
-        "repositoryURL": "https://github.com/mliberman/CCairoJPEG.git",
-        "state": {
-          "branch": null,
-          "revision": "aa5dfbd668ea425bf3c21ee96f05d684d083d479",
-          "version": "1.0.5"
-        }
-      },
-      {
-        "package": "CFontConfig",
-        "repositoryURL": "https://github.com/mliberman/CFontConfig.git",
-        "state": {
-          "branch": null,
-          "revision": "4d0423371085620203a43e2eb1473e2a7c7b7e56",
-          "version": "1.1.0"
-        }
-      },
-      {
-        "package": "CFreeType",
-        "repositoryURL": "https://github.com/mliberman/CFreeType.git",
-        "state": {
-          "branch": null,
-          "revision": "dde9ca18a67d194253b120804303b29ce395a8ff",
-          "version": "1.1.0"
-        }
-      }
+
     ]
   },
   "version": 1

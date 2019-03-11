@@ -1,3 +1,4 @@
 Cairo.xcodeproj
 .build
 Packages
+.DS_Store

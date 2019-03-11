@@ -1,0 +1,4 @@
+module CCairoJPEG {
+    header "cairo_jpg.h"
+    export *
+}
