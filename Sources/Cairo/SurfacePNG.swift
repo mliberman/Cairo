@@ -36,28 +36,19 @@ extension Surface {
 
 extension Surface.Image {
     
-    /// Creates a new image surface from PNG data read incrementally via the read function.
-    @inline(__always)
-    fileprivate convenience init(png readFunction: @escaping cairo_read_func_t, closure: UnsafeMutableRawPointer) throws {
+    public convenience init(pngData: Data) throws {
         
-        let internalPointer = cairo_image_surface_create_from_png_stream(readFunction, closure)!
-        
-        try self.init(internalPointer)
-    }
-    
-    public convenience init(png data: Data) throws {
-        
-        let dataProvider = PNGDataProvider(data: data)
+        let dataProvider = PNGDataProvider(data: pngData)
         
         let unmanaged = Unmanaged.passUnretained(dataProvider)
         
         let pointer = unmanaged.toOpaque()
-        
-        try self.init(png: pngRead, closure: pointer)
+
+        try self.init(cairo_image_surface_create_from_png_stream(pngRead, pointer)!)
     }
 
-    public static func png(fromFile path: String) throws -> Surface.Image {
-        return try Surface.Image.init(cairo_image_surface_create_from_png(path.cString(using: .utf8)))
+    public convenience init(contentsOfPngFile path: String) throws {
+        try self.init(cairo_image_surface_create_from_png(path.cString(using: .utf8)))
     }
 }
 

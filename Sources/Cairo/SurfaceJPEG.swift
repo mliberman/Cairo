@@ -29,28 +29,22 @@ extension Surface {
 
 extension Surface.Image {
 
-    /// Creates a new image surface from JPEG data read incrementally via the read function.
-    @inline(__always)
-    fileprivate convenience init(jpeg readFunction: @escaping cairo_read_func_t, closure: UnsafeMutableRawPointer) throws {
+    public convenience init(jpegData: Data) throws {
 
-        let internalPointer = cairo_image_surface_create_from_jpeg_stream(readFunction, closure)!
-
-        try self.init(internalPointer)
-    }
-
-    public convenience init(jpeg data: Data) throws {
-
-        let dataProvider = JPEGDataProvider(data: data)
+        let dataProvider = JPEGDataProvider(data: jpegData)
 
         let unmanaged = Unmanaged.passUnretained(dataProvider)
 
         let pointer = unmanaged.toOpaque()
 
-        try self.init(jpeg: jpegRead, closure: pointer)
+        try self.init(cairo_image_surface_create_from_jpeg_stream(jpegRead, pointer)!)
     }
 
-    public static func jpeg(fromFile path: String) throws -> Surface.Image {
-        return try Surface.Image(cairo_image_surface_create_from_jpeg(path.cString(using: .utf8))!)
+    public convenience init(contentsOfJpegFile path: String) throws {
+
+        let internalPointer = cairo_image_surface_create_from_jpeg(path.cString(using: .utf8))!
+
+        try self.init(internalPointer)
     }
 }
 

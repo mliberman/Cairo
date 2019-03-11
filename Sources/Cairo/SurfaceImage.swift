@@ -6,7 +6,8 @@
 //
 //
 
-import struct Foundation.Data
+import Foundation
+
 @_exported import CCairo
 
 extension Surface {
@@ -50,7 +51,7 @@ extension Surface {
             try self.init(mutableBytes: bytes, format: format, width: width, height: height, stride: stride)
         }
         
-        /// For internal use with extensions (e.g. `init(png:)`)
+        /// For internal use with extensions (e.g. `init(pngData:)`)
         internal override init(_ internalPointer: OpaquePointer) throws {
             
             try super.init(internalPointer)
@@ -121,5 +122,31 @@ extension Surface {
                 return Data(bytesNoCopy: pointer, count: length, deallocator: deallocator)
             }
         }()
+    }
+}
+
+extension Surface.Image {
+
+    private static let pngBytes: [UInt8] = [0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A]
+    private static let jpegBytes: [UInt8] = [0xFF, 0xD8]
+
+    public convenience init(contentsOfFile path: String) throws {
+        guard let fileHandle = FileHandle(forReadingAtPath: path) else {
+            throw CairoError(rawValue: CAIRO_STATUS_READ_ERROR.rawValue)!
+        }
+        let data = fileHandle.readData(ofLength: 8)
+        let compare = { (magicBytes: [UInt8]) -> Bool in
+            for (byte, magicByte) in zip(data.map { $0 }, magicBytes) {
+                guard byte == magicByte else { return false }
+            }
+            return true
+        }
+        if compare(Surface.Image.pngBytes) {
+            try self.init(contentsOfPngFile: path)
+        } else if compare(Surface.Image.jpegBytes) {
+            try self.init(contentsOfJpegFile: path)
+        } else {
+            throw CairoError(rawValue: CAIRO_STATUS_READ_ERROR.rawValue)!
+        }
     }
 }

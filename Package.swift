@@ -56,7 +56,7 @@ let package = Package(
                 "CCairo",
                 "CCairoJPEG",
                 "CFontConfig",
-                "CFreeType"
+                "CFreeType",
             ]
         )
     ]
