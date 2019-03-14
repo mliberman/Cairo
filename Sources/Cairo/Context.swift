@@ -108,8 +108,13 @@ public final class Context {
     /// 
     /// - Note: Opaque areas of `surface` are painted with the source, transparent areas are not painted.
     public func mask(surface: Surface, at point: (x: Double, y: Double)) {
-        
+
         cairo_mask_surface(internalPointer, surface.internalPointer, point.x, point.y)
+    }
+
+    public func mask(pattern: Pattern) {
+
+        cairo_mask(internalPointer, pattern.internalPointer)
     }
     
     public func stroke() {
