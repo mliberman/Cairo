@@ -127,14 +127,35 @@ extension Surface {
 
 extension Surface.Image {
 
+    private enum Encoding {
+        case png
+        case jpeg
+    }
+
     private static let pngBytes: [UInt8] = [0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A]
     private static let jpegBytes: [UInt8] = [0xFF, 0xD8]
 
     public convenience init(contentsOfFile path: String) throws {
-        guard let fileHandle = FileHandle(forReadingAtPath: path) else {
-            throw CairoError(rawValue: CAIRO_STATUS_READ_ERROR.rawValue)!
+        let encoding = try Surface.Image.determineEncoding(path: path)
+        switch encoding {
+        case .png:
+            try self.init(contentsOfPngFile: path)
+        case .jpeg:
+            try self.init(contentsOfJpegFile: path)
         }
-        let data = fileHandle.readData(ofLength: 8)
+    }
+
+    public convenience init(data: Data) throws {
+        let encoding = try Surface.Image.determineEncoding(data: data)
+        switch encoding {
+        case .png:
+            try self.init(pngData: data)
+        case .jpeg:
+            try self.init(jpegData: data)
+        }
+    }
+
+    private static func determineEncoding(data: Data) throws -> Encoding {
         let compare = { (magicBytes: [UInt8]) -> Bool in
             for (byte, magicByte) in zip(data.map { $0 }, magicBytes) {
                 guard byte == magicByte else { return false }
@@ -142,11 +163,24 @@ extension Surface.Image {
             return true
         }
         if compare(Surface.Image.pngBytes) {
-            try self.init(contentsOfPngFile: path)
+            return .png
         } else if compare(Surface.Image.jpegBytes) {
-            try self.init(contentsOfJpegFile: path)
+            return .jpeg
         } else {
             throw CairoError(rawValue: CAIRO_STATUS_READ_ERROR.rawValue)!
         }
+    }
+
+    private static func determineEncoding(path: String) throws -> Encoding {
+        guard let fileHandle = FileHandle(forReadingAtPath: path) else {
+            throw CairoError(rawValue: CAIRO_STATUS_READ_ERROR.rawValue)!
+        }
+        let data = fileHandle.readData(
+            ofLength: max(
+                Surface.Image.pngBytes.count,
+                Surface.Image.jpegBytes.count
+            )
+        )
+        return try Surface.Image.determineEncoding(data: data)
     }
 }
