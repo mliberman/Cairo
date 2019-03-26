@@ -504,7 +504,7 @@ public final class Context {
     import Foundation
     import AppKit
     
-    public extension Context {
+    extension Context {
         
         @objc(debugQuickLookObject)
         public var debugQuickLookObject: AnyObject {
