@@ -336,10 +336,10 @@ public final class FontOptions: Equatable, Hashable {
         
         return FontOptions(cairo_font_options_copy(internalPointer))
     }
-    
-    public var hashValue: Int {
-        
-        return Int(bitPattern: cairo_font_options_hash(internalPointer))
+
+    public func hash(into hasher: inout Hasher) {
+
+        hasher.combine(cairo_font_options_hash(internalPointer))
     }
     
     public var hintMetrics: cairo_hint_metrics_t {

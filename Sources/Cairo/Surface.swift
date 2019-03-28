@@ -104,7 +104,7 @@ internal func cairo_surface_create_check_status(_ internalPointer: OpaquePointer
     import Foundation
     import AppKit
     
-    public extension Surface {
+    extension Surface {
         
         @objc(debugQuickLookObject)
         public var debugQuickLookObject: AnyObject {

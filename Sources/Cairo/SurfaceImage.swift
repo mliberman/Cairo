@@ -46,7 +46,7 @@ extension Surface {
             var data = data
             
             // a bit unsafe, but cant use self.init inside closure.
-            let bytes: UnsafeMutablePointer<UInt8> = data.withUnsafeMutableBytes { $0 }
+            let bytes: UnsafeMutablePointer<UInt8> = data.withUnsafeMutableBytes { $0.baseAddress!.assumingMemoryBound(to: UInt8.self) }
             
             try self.init(mutableBytes: bytes, format: format, width: width, height: height, stride: stride)
         }
